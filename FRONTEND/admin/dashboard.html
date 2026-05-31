@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>SAMTECH LIBRARY ADMIN</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:Arial,sans-serif;
+      background:#050816;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .dashboard{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /*
+    ====================================
+    SIDEBAR
+    ====================================
+    */
+
+    .sidebar{
+      width:280px;
+      background:#0b1020;
+      border-right:1px solid rgba(255,255,255,0.08);
+      padding:30px 20px;
+      position:fixed;
+      top:0;
+      left:0;
+      height:100vh;
+      z-index:1000;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:50px;
+    }
+
+    .logo i{
+      font-size:2rem;
+      color:#00ff9d;
+    }
+
+    .logo h2{
+      font-size:1.5rem;
+    }
+
+    .logo span{
+      color:#777;
+      font-size:0.9rem;
+    }
+
+    .menu{
+      list-style:none;
+    }
+
+    .menu li{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:16px;
+      border-radius:16px;
+      margin-bottom:14px;
+      cursor:pointer;
+      transition:0.3s ease;
+      color:#ccc;
+      font-weight:500;
+    }
+
+    .menu li:hover,
+    .menu .active{
+      background:#00ff9d;
+      color:black;
+      transform:translateX(4px);
+    }
+
+    /*
+    ====================================
+    MAIN
+    ====================================
+    */
+
+    .main{
+      flex:1;
+      margin-left:280px;
+      padding:40px;
+    }
+
+    /*
+    ====================================
+    TOPBAR
+    ====================================
+    */
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:40px;
+    }
+
+    .topbar h1{
+      font-size:2.6rem;
+      margin-bottom:10px;
+    }
+
+    .topbar p{
+      color:#888;
+      font-size:1rem;
+    }
+
+    .profile{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:#0f172a;
+      padding:12px 18px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .profile img{
+      width:55px;
+      height:55px;
+      border-radius:50%;
+    }
+
+    /*
+    ====================================
+    ANALYTICS
+    ====================================
+    */
+
+    .analytics-grid{
+      display:grid;
+      grid-template-columns:
+      repeat(auto-fit,minmax(240px,1fr));
+      gap:24px;
+      margin-bottom:40px;
+    }
+
+    .card{
+      background:linear-gradient(
+        145deg,
+        #0d1326,
+        #121a30
+      );
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      border-radius:24px;
+
+      padding:30px;
+
+      position:relative;
+
+      overflow:hidden;
+
+      transition:0.3s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:
+      0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      top:-40px;
+      right:-40px;
+      width:140px;
+      height:140px;
+      background:rgba(0,255,157,0.08);
+      border-radius:50%;
+    }
+
+    .card i{
+      font-size:2.2rem;
+      color:#00ff9d;
+      margin-bottom:20px;
+    }
+
+    .card h2{
+      font-size:2.7rem;
+      margin-bottom:8px;
+    }
+
+    .card p{
+      color:#999;
+    }
+
+    /*
+    ====================================
+    QUICK ACTIONS
+    ====================================
+    */
+
+    .actions-grid{
+      display:grid;
+      grid-template-columns:
+      repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .action-btn{
+      background:linear-gradient(
+        145deg,
+        #0f172a,
+        #111827
+      );
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      color:white;
+
+      padding:30px;
+
+      border-radius:24px;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+
+      display:flex;
+
+      flex-direction:column;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:18px;
+
+      font-size:1rem;
+
+      font-weight:bold;
+    }
+
+    .action-btn i{
+      font-size:2.2rem;
+      color:#00ff9d;
+    }
+
+    .action-btn:hover{
+      transform:translateY(-5px);
+      border-color:#00ff9d;
+      box-shadow:
+      0 20px 40px rgba(0,255,157,0.12);
+    }
+
+    /*
+    ====================================
+    SECTIONS
+    ====================================
+    */
+
+    .section{
+      background:#0d1326;
+      border-radius:24px;
+      padding:30px;
+      margin-bottom:40px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+    }
+
+    .section-header h2{
+      font-size:1.6rem;
+    }
+
+    /*
+    ====================================
+    FORM
+    ====================================
+    */
+
+    .upload-form{
+      display:grid;
+      gap:24px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:
+      repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .form-group{
+      display:flex;
+      flex-direction:column;
+    }
+
+    .form-group label{
+      margin-bottom:10px;
+      color:#bbb;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+      background:#111827;
+      border:1px solid rgba(255,255,255,0.08);
+      color:white;
+      padding:16px;
+      border-radius:16px;
+      outline:none;
+      transition:0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus{
+      border-color:#00ff9d;
+      box-shadow:
+      0 0 0 3px rgba(0,255,157,0.1);
+    }
+
+    /*
+    ====================================
+    FILE UPLOAD
+    ====================================
+    */
+
+    .file-upload{
+      border:2px dashed rgba(255,255,255,0.1);
+      border-radius:24px;
+      padding:60px;
+      text-align:center;
+      cursor:pointer;
+      transition:0.3s ease;
+      background:#111827;
+    }
+
+    .file-upload:hover{
+      border-color:#00ff9d;
+      background:rgba(0,255,157,0.03);
+    }
+
+    .file-upload input{
+      display:none;
+    }
+
+    .file-upload i{
+      font-size:4rem;
+      color:#00ff9d;
+      margin-bottom:20px;
+    }
+
+    .file-upload h3{
+      margin-bottom:10px;
+      font-size:1.4rem;
+    }
+
+    .file-upload p{
+      color:#888;
+    }
+
+    /*
+    ====================================
+    BUTTON
+    ====================================
+    */
+
+    .upload-btn{
+      padding:18px;
+      border:none;
+      border-radius:18px;
+      background:#00ff9d;
+      color:black;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s ease;
+    }
+
+    .upload-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:
+      0 15px 30px rgba(0,255,157,0.2);
+    }
+
+    /*
+    ====================================
+    PDF GRID
+    ====================================
+    */
+
+    .pdf-grid{
+      display:grid;
+      grid-template-columns:
+      repeat(auto-fit,minmax(260px,1fr));
+      gap:24px;
+    }
+
+    .pdf-card{
+      background:#111827;
+      border-radius:24px;
+      overflow:hidden;
+      transition:0.3s ease;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .pdf-card:hover{
+      transform:translateY(-6px);
+      box-shadow:
+      0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .pdf-card img{
+      width:100%;
+      height:280px;
+      object-fit:cover;
+    }
+
+    .pdf-info{
+      padding:22px;
+    }
+
+    .pdf-info h3{
+      margin-bottom:10px;
+      font-size:1.1rem;
+    }
+
+    .pdf-info p{
+      color:#999;
+      margin-bottom:18px;
+      line-height:1.6;
+    }
+
+    .stats{
+      display:flex;
+      justify-content:space-between;
+      color:#00ff9d;
+      font-size:0.9rem;
+    }
+
+    /*
+    ====================================
+    DOWNLOAD TABLE
+    ====================================
+    */
+
+    .downloads-table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    .downloads-table th{
+      background:#111827;
+      color:#00ff9d;
+      text-align:left;
+      padding:18px;
+    }
+
+    .downloads-table td{
+      padding:18px;
+      border-bottom:
+      1px solid rgba(255,255,255,0.06);
+      color:#ddd;
+    }
+
+    .downloads-table tr:hover{
+      background:
+      rgba(255,255,255,0.02);
+    }
+
+    /*
+    ====================================
+    MOBILE
+    ====================================
+    */
+
+    @media(max-width:900px){
+
+      .sidebar{
+        display:none;
+      }
+
+      .main{
+        margin-left:0;
+        padding:20px;
+      }
+
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+      }
+
+      .topbar h1{
+        font-size:2rem;
+      }
+
+      .file-upload{
+        padding:40px 20px;
+      }
+
+    }
+
+  
+/*
+========================================
+UPLOAD AREA STATES
+========================================
+*/
+
+.upload-area {
+
+  border:
+  2px dashed
+  rgba(255,255,255,0.12);
+
+  border-radius: 24px;
+
+  padding: 50px 30px;
+
+  background:
+  rgba(255,255,255,0.02);
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+}
+
+.upload-area:hover {
+
+  border-color:
+  #00ff9d;
+
+  background:
+  rgba(0,255,157,0.04);
+
+}
+
+.upload-area.dragging {
+
+  border-color:
+  #00ff9d;
+
+  background:
+  rgba(0,255,157,0.08);
+
+  transform: scale(1.01);
+
+}
+
+.upload-area.uploaded {
+
+  border-color:
+  #00ff9d;
+
+  background:
+  rgba(0,255,157,0.05);
+
+}
+
+.upload-content {
+
+  text-align: center;
+
+}
+
+.upload-content i {
+
+  font-size: 4rem;
+
+  color: #00ff9d;
+
+  margin-bottom: 20px;
+
+}
+
+.upload-content h3 {
+
+  margin-bottom: 12px;
+
+  font-size: 1.4rem;
+
+}
+
+.upload-content p {
+
+  color: #aaa;
+
+}
+
+.browse-btn {
+
+  margin-top: 24px;
+
+  padding:
+  14px 24px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: #00ff9d;
+
+  color: black;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+}
+
+/*
+========================================
+FILE PREVIEW
+========================================
+*/
+
+.file-preview {
+
+  margin-top: 20px;
+
+  background:
+  rgba(255,255,255,0.03);
+
+  border:
+  1px solid
+  rgba(255,255,255,0.08);
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+}
+
+.file-preview-left {
+
+  display: flex;
+
+  gap: 16px;
+
+  align-items: center;
+
+}
+
+.file-preview-left i {
+
+  font-size: 2.5rem;
+
+  color: #ff4d4d;
+
+}
+
+.file-preview-left h4 {
+
+  margin-bottom: 6px;
+
+}
+
+.file-preview-left p {
+
+  color: #aaa;
+
+}
+
+.file-status {
+
+  color: #00ff9d;
+
+  font-weight: 700;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="logo">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <div>
+
+          <h2>SAMTECH</h2>
+
+          <span>LIBRARY ADMIN</span>
+
+        </div>
+
+      </div>
+
+      <ul class="menu">
+
+        <li class="active">
+          <i class="fa-solid fa-chart-line"></i>
+          Dashboard
+        </li>
+
+        <li>
+          <i class="fa-solid fa-file-pdf"></i>
+          PDFs
+        </li>
+
+        <li>
+          <i class="fa-solid fa-chart-column"></i>
+          Analytics
+        </li>
+
+        <li>
+          <i class="fa-solid fa-users"></i>
+          Visitors
+        </li>
+
+        <li>
+          <i class="fa-solid fa-fire"></i>
+          Trending
+        </li>
+
+        <li id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </li>
+
+      </ul>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <!-- TOPBAR -->
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            Welcome Back, Admin
+          </h1>
+
+          <p>
+            Manage PDFs, analytics,
+            downloads and visitors.
+          </p>
+
+        </div>
+
+        <div class="profile">
+
+          <img
+            src="https://i.pravatar.cc/100"
+          />
+
+          <div>
+
+            <h4>Samtech Admin</h4>
+
+            <span>
+              Super Administrator
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ANALYTICS -->
+
+      <section class="analytics-grid">
+
+        <div class="card">
+
+          <i class="fa-solid fa-file-pdf"></i>
+
+          <h2 id="totalPDFs">0</h2>
+
+          <p>Total PDFs</p>
+
+        </div>
+
+        <div class="card">
+
+          <i class="fa-solid fa-download"></i>
+
+          <h2 id="totalDownloads">0</h2>
+
+          <p>Total Downloads</p>
+
+        </div>
+
+        <div class="card">
+
+          <i class="fa-solid fa-eye"></i>
+
+          <h2 id="totalVisitors">0</h2>
+
+          <p>Total Visitors</p>
+
+        </div>
+
+        <div class="card">
+
+          <i class="fa-solid fa-fire"></i>
+
+          <h2 id="trendingPDFs">0</h2>
+
+          <p>Trending PDFs</p>
+
+        </div>
+
+      </section>
+
+      <!-- QUICK ACTIONS -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Quick Actions</h2>
+
+        </div>
+
+        <div class="actions-grid">
+
+          <button class="action-btn">
+
+            <i class="fa-solid fa-upload"></i>
+
+            Upload PDF
+
+          </button>
+
+          <button class="action-btn">
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            Analytics
+
+          </button>
+
+          <button class="action-btn">
+
+            <i class="fa-solid fa-users"></i>
+
+            Visitors
+
+          </button>
+
+          <button class="action-btn">
+
+            <i class="fa-solid fa-fire"></i>
+
+            Trending PDFs
+
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- UPLOAD -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Upload PDF</h2>
+
+        </div>
+
+        <form
+          id="uploadForm"
+          class="upload-form"
+        >
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label>PDF Title</label>
+
+              <input
+                type="text"
+                id="title"
+                placeholder="Enter PDF title"
+                required
+              />
+
+            </div>
+
+            <div class="form-group">
+
+              <label>Author</label>
+
+              <input
+                type="text"
+                id="author"
+                placeholder="Author name"
+                required
+              />
+
+            </div>
+
+            <div class="form-group">
+
+              <label>Category</label>
+
+              <select id="category">
+
+                <option>
+                  Ethical Hacking
+                </option>
+
+                <option>
+                  Programming
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label>Subcategory</label>
+
+              <input
+                type="text"
+                id="subcategory"
+                placeholder="Example: Python"
+                required
+              />
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Description</label>
+
+            <textarea
+              id="description"
+              rows="6"
+              placeholder="Write PDF description..."
+            ></textarea>
+
+          </div>
+
+<div class="form-group">
+   <label>Select PDF File</label>
+    <div class="upload-area" id="uploadArea"> 
+      <input type="file" id="pdfFile" accept=".pdf" hidden required />
+       <div class="upload-content"> <i class="fa-solid fa-cloud-arrow-up"></i> 
+        <h3> Drag & Drop PDF Here </h3> <p> or click to browse files </p> 
+        <button type="button" class="browse-btn" id="browseBtn" > Browse File </button>
+       </div>
+       </div>
+          <button
+            type="submit"
+            class="upload-btn"
+          >
+
+            <i class="fa-solid fa-upload"></i>
+
+            Upload PDF
+
+          </button>
+
+        </form>
+        
+
+        <!-- FILE STATUS --> 
+         <div class="file-preview" id="filePreview" > 
+          <div class="file-preview-left"> <i class="fa-solid fa-file-pdf"></i> 
+            <div> <h4 id="fileName"> No file selected </h4> 
+              <p id="fileSize"> Waiting for upload... </p> 
+            </div> </div> <div class="file-status">
+               <i class="fa-solid fa-circle-check"></i> Ready 
+              </div>
+
+      </section>
+
+      <!-- RECENT PDFs -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Recent PDFs</h2>
+
+        </div>
+
+        <div
+          class="pdf-grid"
+          id="recentPDFs"
+        >
+
+          <!-- PDFs from JS -->
+
+        </div>
+
+      </section>
+
+      <!-- RECENT DOWNLOADS -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Recent Downloads</h2>
+
+        </div>
+
+        <table class="downloads-table">
+
+          <thead>
+
+            <tr>
+
+              <th>PDF</th>
+              <th>User IP</th>
+              <th>Date</th>
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="downloadsTable">
+
+          </tbody>
+
+        </table>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

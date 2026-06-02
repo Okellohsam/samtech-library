@@ -119,12 +119,9 @@ app.use(
 
 app.use(
   cors({
-    origin: '*',
-    methods: [
-      'GET',
-      'POST',
-      'PUT',
-      'DELETE'
+    origin: [
+      "https://samtech-library.netlify.app",
+      "http://localhost:5500"
     ],
     credentials: true
   })

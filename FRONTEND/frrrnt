@@ -1,0 +1,24 @@
+samtech-library/
+│
+├── client/
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   ├── pages/
+│   └── assets/
+│
+├── server/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middleware/
+│   ├── models/
+│   ├── uploads/
+│   └── config/
+│
+├── admin/
+│   ├── dashboard.html
+│   ├── upload.html
+│   ├── analytics.html
+│   └── js/
+│
+└── package.json

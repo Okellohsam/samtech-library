@@ -8,7 +8,7 @@ searchInput?.addEventListener(
     const query = e.target.value;
 
     const response = await fetch(
-      `http://localhost:5000/api/pdfs?search=${query}`
+      `https://saamtech-library.onrender.com/api/pdfs?search=${query}`
     );
 
     const pdfs = await response.json();

@@ -120,7 +120,7 @@ app.use(
 app.use(
   cors({
     origin: [
-      "https://samtech-library.netlify.app",
+      "https://samtech-library.vercel.app/",
       "http://localhost:5500"
     ],
     credentials: true

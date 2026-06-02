@@ -21,7 +21,7 @@ API URL
 */
 
 const API_URL =
-  'http://localhost:5000/api';
+  'https://samtech-library.onrender.com/api';
 
 /*
 ====================================

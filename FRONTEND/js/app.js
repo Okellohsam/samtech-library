@@ -1,5 +1,5 @@
 const API_URL =
-  "http://localhost:5000/api/pdfs";
+  "https://samtech-library.onrender.com/api/pdfs";
 
 const pdfGrid =
   document.getElementById("pdfGrid");
@@ -171,7 +171,7 @@ async function downloadPDF(id) {
 
     const response =
       await fetch(
-        `http://localhost:5000/api/pdfs/download/${id}`
+        `https://samtech-library.onrender.com/api/pdfs/download/${id}`
       );
 
     const data =

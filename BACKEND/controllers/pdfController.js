@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const streamifier = require('streamifier');
-const pdf = require('pdf-poppler');
+const pdf = require('pdf2pic');
 
 const cloudinary = require('../config/cloudinary');
 

@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const streamifier = require('streamifier');
-const pdf = require('pdf2pic');
+const { fromPath } = require('pdf2pic');
 
 const cloudinary = require('../config/cloudinary');
 
@@ -107,48 +107,54 @@ const uploadPDF = async (req, res) => {
 
     };
 
-    await pdf.convert(
-      pdfPath,
-      options
-    );
+const convert = fromPath(pdfPath, {
+  density: 150,
+  saveFilename: `thumb-${timestamp}`,
+  savePath: tempDir,
+  format: "png",
+  width: 600,
+  height: 800
+});
+
+const result = await convert(1);
 
     /*
     ========================================
     FIND GENERATED THUMBNAIL
     ========================================
     */
+/*
+========================================
+GENERATE THUMBNAIL USING PDF2PIC
+========================================
+*/
 
-    const generatedFiles =
-      fs.readdirSync(tempDir);
+ 
 
-    const thumbnailFile =
-      generatedFiles.find(file => {
+const convert = fromPath(pdfPath, {
+  density: 150,
+  saveFilename: `thumb-${timestamp}`,
+  savePath: tempDir,
+  format: 'png',
+  width: 600,
+  height: 800
+});
 
-        return (
-          file.startsWith(outputPrefix) &&
-          file.endsWith('.png')
-        );
+const thumbnailResult = await convert(1);
 
-      });
+/*
+========================================
+GENERATED THUMB PATH
+========================================
+*/
 
-    if (!thumbnailFile) {
+const generatedThumb =
+  thumbnailResult.path;
 
-      throw new Error(
-        'Thumbnail generation failed'
-      );
-
-    }
-
-    generatedThumb = path.join(
-      tempDir,
-      thumbnailFile
-    );
-
-    console.log(
-      'Generated Thumbnail:',
-      generatedThumb
-    );
-
+console.log(
+  'Generated Thumbnail:',
+  generatedThumb
+);
     /*
     ========================================
     OPTIMIZE THUMBNAIL

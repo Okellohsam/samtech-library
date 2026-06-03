@@ -131,17 +131,7 @@ GENERATE THUMBNAIL USING PDF2PIC
 
  
 
-const convert = fromPath(pdfPath, {
-  density: 150,
-  saveFilename: `thumb-${timestamp}`,
-  savePath: tempDir,
-  format: 'png',
-  width: 600,
-  height: 800
-});
-
-const thumbnailResult = await convert(1);
-
+ 
 /*
 ========================================
 GENERATED THUMB PATH

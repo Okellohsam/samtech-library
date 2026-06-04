@@ -121,7 +121,7 @@ app.use(
   cors({
     origin: [
       "https://samtech-library.vercel.app/",
-      "http://localhost:5500"
+      "http://localhost:5173"
     ],
     credentials: true
   })

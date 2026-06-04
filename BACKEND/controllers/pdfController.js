@@ -6,6 +6,8 @@ const { fromPath } = require('pdf2pic');
 const cloudinary = require('../config/cloudinary');
 const PDF = require('../models/PDF');
 const optimizeImage = require('../utils/optimizeImage');
+const Download =
+  require('../models/Download');
 
 /*
 
@@ -405,6 +407,51 @@ res.status(500).json({
 }
 
 };
+
+const pdf =
+  await PDF.findById(
+    req.params.id
+  );
+
+if (!pdf) {
+
+  return res.status(404).json({
+    message: 'PDF not found'
+  });
+
+}
+
+pdf.downloads += 1;
+
+await pdf.save();
+
+/*
+====================================
+SAVE DOWNLOAD RECORD
+====================================
+*/
+
+await Download.create({
+
+  pdfTitle:
+    pdf.title,
+
+  pdfId:
+    pdf._id,
+
+  ipAddress:
+    req.ip
+
+});
+
+res.json({
+
+  success: true,
+
+  downloadUrl:
+    pdf.pdfUrl
+
+});
 
 module.exports = {
 

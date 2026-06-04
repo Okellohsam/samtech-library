@@ -1,5 +1,6 @@
 const PDF = require('../models/PDF');
 const Visitor = require('../models/Visitor');
+const Download = require('../models/Download');
 
 const getAnalytics = async (req, res) => {
 
@@ -38,7 +39,38 @@ const getAnalytics = async (req, res) => {
   }
 
 };
+const getDownloads = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const downloads =
+      await Download.find()
+
+        .sort({
+          createdAt: -1
+        })
+
+        .limit(50);
+
+    res.json(downloads);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
+};
 
 module.exports = {
-  getAnalytics
+
+  getAnalytics,
+
+  getDownloads
+
 };

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    SAMTECH LIBRARY ANALYTICS
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="../css/admin.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="logo">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <div>
+
+          <h2>SAMTECH</h2>
+
+          <span>LIBRARY ADMIN</span>
+
+        </div>
+
+      </div>
+
+      <ul class="menu">
+
+        <li onclick="goDashboard()">
+
+          <i class="fa-solid fa-chart-line"></i>
+
+          Dashboard
+
+        </li>
+
+        <li class="active">
+
+          <i class="fa-solid fa-chart-column"></i>
+
+          Analytics
+
+        </li>
+
+        <li onclick="logout()">
+
+          <i class="fa-solid fa-right-from-bracket"></i>
+
+          Logout
+
+        </li>
+
+      </ul>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>Analytics Overview</h1>
+
+          <p>
+            Real-time platform statistics
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- STATS -->
+
+      <section class="analytics-grid">
+
+        <div class="card">
+
+          <i class="fa-solid fa-file-pdf"></i>
+
+          <h2 id="pdfCount">0</h2>
+
+          <p>Total PDFs</p>
+
+        </div>
+
+        <div class="card">
+
+          <i class="fa-solid fa-download"></i>
+
+          <h2 id="downloadCount">0</h2>
+
+          <p>Total Downloads</p>
+
+        </div>
+
+        <div class="card">
+
+          <i class="fa-solid fa-eye"></i>
+
+          <h2 id="visitorCount">0</h2>
+
+          <p>Total Visitors</p>
+
+        </div>
+
+      </section>
+
+      <!-- CHART -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Downloads Analytics</h2>
+
+        </div>
+
+        <canvas id="downloadsChart"></canvas>
+
+      </section>
+
+      <!-- TRENDING PDFs -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <h2>Trending PDFs</h2>
+
+        </div>
+
+        <div
+          class="pdf-grid"
+          id="trendingPDFs"
+        ></div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="../js/analytics.js"></script>
+
+</body>
+
+</html>

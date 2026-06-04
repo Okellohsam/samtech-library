@@ -7,7 +7,7 @@ const cloudinary = require('../config/cloudinary');
 const PDF = require('../models/PDF');
 const optimizeImage = require('../utils/optimizeImage');
 
-# /*
+/*
 
 # UPLOAD PDF
 
@@ -21,7 +21,7 @@ let optimizedThumb = null;
 
 try {
 
-```
+
 const {
   title,
   description,
@@ -259,11 +259,11 @@ res.status(201).json({
   pdf: newPDF
 
 });
-```
+
 
 } catch (error) {
 
-```
+
 console.error(
   'Upload PDF Error:',
   error
@@ -298,13 +298,13 @@ res.status(500).json({
   message: error.message
 
 });
-```
+
 
 }
 
 };
 
-# /*
+/*
 
 # GET ALL PDFs
 
@@ -317,7 +317,7 @@ res
 
 try {
 
-```
+
 const pdfs =
   await PDF.find()
     .sort({
@@ -325,11 +325,11 @@ const pdfs =
     });
 
 res.json(pdfs);
-```
+
 
 } catch (error) {
 
-```
+
 res.status(500).json({
 
   success: false,
@@ -337,13 +337,13 @@ res.status(500).json({
     error.message
 
 });
-```
+
 
 }
 
 };
 
-# /*
+/*
 
 # TRACK DOWNLOAD
 
@@ -356,7 +356,7 @@ res
 
 try {
 
-```
+
 const pdf =
   await PDF.findById(
     req.params.id
@@ -389,11 +389,10 @@ res.json({
     `${pdf.title}.pdf`
 
 });
-```
+
 
 } catch (error) {
 
-```
 res.status(500).json({
 
   success: false,
@@ -401,7 +400,7 @@ res.status(500).json({
     error.message
 
 });
-```
+
 
 }
 

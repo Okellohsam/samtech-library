@@ -568,9 +568,15 @@ async function fetchDownloads() {
   try {
 
     const response =
-      await fetch(
-        `${API_URL}/analytics/downloads`
-      );
+  await fetch(
+    `${API_URL}/analytics/downloads`,
+    {
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
 
     const downloads =
       await response.json();
@@ -582,7 +588,17 @@ async function fetchDownloads() {
 
     table.innerHTML = "";
 
-    downloads.forEach(item => {
+    if (!Array.isArray(downloads)) {
+
+  console.error(
+    'Invalid downloads data:',
+    downloads
+  );
+
+  return;
+}
+
+downloads.forEach(item => {
 
       table.innerHTML += `
 

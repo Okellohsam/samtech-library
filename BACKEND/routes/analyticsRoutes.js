@@ -1,15 +1,48 @@
-const express = require('express');
+const express =
+  require('express');
 
-const router = express.Router();
+const router =
+  express.Router();
 
 const {
-  getAnalytics
-} = require('../controllers/analyticsController');
+
+  getAnalytics,
+
+  getDownloads
+
+} = require(
+  '../controllers/analyticsController'
+);
 
 const {
   protect
-} = require('../middleware/authMiddleware');
+} = require(
+  '../middleware/authMiddleware'
+);
 
-router.get('/', protect, getAnalytics);
+/*
+====================================
+ANALYTICS
+====================================
+*/
 
-module.exports = router;
+router.get(
+  '/',
+  protect,
+  getAnalytics
+);
+
+/*
+====================================
+DOWNLOAD HISTORY
+====================================
+*/
+
+router.get(
+  '/downloads',
+  protect,
+  getDownloads
+);
+
+module.exports =
+  router;

@@ -157,130 +157,217 @@ UPLOAD PDF
 ====================================
 */
 
-const uploadForm =
-  document.getElementById(
-    'uploadForm'
-  );
+const uploadArea =
+  document.getElementById("uploadArea");
 
-uploadForm?.addEventListener(
-  'submit',
-  async (e) => {
+const pdfFile =
+  document.getElementById("pdfFile");
+
+const browseBtn =
+  document.getElementById("browseBtn");
+
+const filePreview =
+  document.getElementById("filePreview");
+
+const fileName =
+  document.getElementById("fileName");
+
+const fileSize =
+  document.getElementById("fileSize");
+
+/*
+=================================
+OPEN FILE EXPLORER
+=================================
+*/
+
+browseBtn.addEventListener(
+  "click",
+  function (e) {
 
     e.preventDefault();
+    e.stopPropagation();
 
-    const uploadBtn =
-      document.querySelector(
-        '.upload-btn'
-      );
-
-    uploadBtn.innerHTML =
-      'Uploading...';
-
-    const formData =
-      new FormData();
-
-    formData.append(
-      'title',
-      document.getElementById(
-        'title'
-      ).value
-    );
-
-    formData.append(
-      'author',
-      document.getElementById(
-        'author'
-      ).value
-    );
-
-    formData.append(
-      'category',
-      document.getElementById(
-        'category'
-      ).value
-    );
-
-    formData.append(
-      'subcategory',
-      document.getElementById(
-        'subcategory'
-      ).value
-    );
-
-    formData.append(
-      'description',
-      document.getElementById(
-        'description'
-      ).value
-    );
-
-    formData.append(
-      'pdf',
-      document.getElementById(
-        'pdfFile'
-      ).files[0]
-    );
-
-    formData.append(
-  "thumbnail",
-  document.getElementById(
-    "thumbnailFile"
-  ).files[0]
-);
-
-    try {
-
-      const response = await fetch(
-        `${API_URL}/pdfs`,
-        {
-
-          method: 'POST',
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          },
-
-          body: formData
-
-        }
-      );
-
-      const data =
-        await response.json();
-
-      if (response.ok) {
-
-        alert(
-          'PDF uploaded successfully'
-        );
-
-        uploadForm.reset();
-
-        fetchPDFs();
-
-        fetchAnalytics();
-
-      } else {
-
-        alert(data.message);
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        'Upload Error:',
-        error
-      );
-
-    }
-
-    uploadBtn.innerHTML =
-      'Upload PDF';
+    pdfFile.click();
 
   }
 );
+
+/*
+=================================
+CLICK AREA TO BROWSE
+=================================
+*/
+
+uploadArea.addEventListener(
+  "click",
+  () => {
+
+    pdfFile.click();
+
+  }
+);
+
+/*
+=================================
+FILE SELECTED
+=================================
+*/
+
+pdfFile.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      pdfFile.files[0];
+
+    if (!file) return;
+
+    updatePreview(file);
+
+  }
+);
+
+/*
+=================================
+PREVENT DEFAULT DRAG BEHAVIOR
+=================================
+*/
+
+[
+  "dragenter",
+  "dragover",
+  "dragleave",
+  "drop"
+].forEach(eventName => {
+
+  uploadArea.addEventListener(
+    eventName,
+    preventDefaults,
+    false
+  );
+
+  document.body.addEventListener(
+    eventName,
+    preventDefaults,
+    false
+  );
+
+});
+
+function preventDefaults(e) {
+
+  e.preventDefault();
+  e.stopPropagation();
+
+}
+
+/*
+=================================
+DRAG STYLE
+=================================
+*/
+
+uploadArea.addEventListener(
+  "dragover",
+  () => {
+
+    uploadArea.classList.add(
+      "dragging"
+    );
+
+  }
+);
+
+uploadArea.addEventListener(
+  "dragleave",
+  () => {
+
+    uploadArea.classList.remove(
+      "dragging"
+    );
+
+  }
+);
+
+/*
+=================================
+DROP FILE
+=================================
+*/
+
+uploadArea.addEventListener(
+  "drop",
+  (e) => {
+
+    uploadArea.classList.remove(
+      "dragging"
+    );
+
+    const files =
+      e.dataTransfer.files;
+
+    if (
+      !files ||
+      files.length === 0
+    ) return;
+
+    pdfFile.files = files;
+
+    updatePreview(files[0]);
+
+  }
+);
+
+/*
+=================================
+PREVIEW FILE
+=================================
+*/
+
+function updatePreview(file) {
+
+  if (
+    file.type !==
+    "application/pdf"
+  ) {
+
+    alert(
+      "Only PDF files are allowed"
+    );
+
+    return;
+
+  }
+
+  filePreview.style.display =
+    "flex";
+
+  fileName.textContent =
+    file.name;
+
+  fileSize.textContent =
+    formatFileSize(file.size);
+
+}
+
+function formatFileSize(bytes) {
+
+  if (bytes < 1024)
+    return bytes + " B";
+
+  if (bytes < 1024 * 1024)
+    return (
+      (bytes / 1024).toFixed(2) +
+      " KB"
+    );
+
+  return (
+    (bytes / 1024 / 1024).toFixed(2) +
+    " MB"
+  );
+
+}
 
 /*
 ====================================

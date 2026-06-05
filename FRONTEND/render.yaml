@@ -1,5 +1,0 @@
-services:
-  - type: web
-    name: samtech-library-frontend
-    env: static
-    staticPublishPath: ./FRONTEND

@@ -1015,25 +1015,25 @@ FILE PREVIEW
     <input
       type="file"
       id="pdfFile"
-      accept=".pdf"
+      accept=".pdf,application/pdf"
       hidden
       required
     />
 
     <div class="upload-content">
 
-      <i class="fa-solid fa-file-pdf"></i>
+      <i class="fa-solid fa-cloud-arrow-up"></i>
 
       <h3>Drag & Drop PDF Here</h3>
 
-      <p>or click to browse PDF</p>
+      <p>or click browse below</p>
 
       <button
         type="button"
         class="browse-btn"
         id="browseBtn"
       >
-        Browse PDF
+        Browse File
       </button>
 
     </div>
@@ -1042,6 +1042,31 @@ FILE PREVIEW
 
 </div>
 
+<div
+  class="file-preview"
+  id="filePreview"
+  style="display:none;"
+>
+
+  <div class="file-preview-left">
+
+    <i class="fa-solid fa-file-pdf"></i>
+
+    <div>
+
+      <h4 id="fileName">
+        No file selected
+      </h4>
+
+      <p id="fileSize">
+        Waiting for upload...
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 <!-- THUMBNAIL -->
 
 <div class="form-group">
